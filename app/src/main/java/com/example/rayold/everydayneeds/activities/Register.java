@@ -52,18 +52,29 @@ public class Register extends AppCompatActivity {
                 String s2 = email.getText().toString();
                 String s3 = password.getText().toString();
                 String s4 = mySpinner.getSelectedItem().toString();
+
+
+
                 if (s1.equals("") || s2.equals("") || s3.equals("") || s4.equals("--Choisir role--")) {
                     Toast.makeText(getApplicationContext(), "Fileds are empty", Toast.LENGTH_SHORT).show();
-                } else {
+
+                }
+                else{
                     Boolean chkemail = db.checkmail(s2);
                     if (chkemail == true) {
-                        Boolean insert = db.insert(s1,s2,s3,s4);
-                        if (insert == true) {
-                            Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(Register.this, Login.class);
-                            startActivity(i);
+                        if(s4.equals("Administrateur")){
+                            if(db.countAdmin()==false){
+                                Toast.makeText(getApplicationContext(), "Admin Already exists", Toast.LENGTH_SHORT).show();
+                            }
                         }else{
-                            Toast.makeText(getApplicationContext(), "Registered Failing", Toast.LENGTH_SHORT).show();
+                            Boolean insert = db.insert(s1,s2,s3,s4);
+                            if (insert == true) {
+                                Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(Register.this, Login.class);
+                                startActivity(i);
+                            }  else{
+                                Toast.makeText(getApplicationContext(), "Registered Failing", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     } else {
                         Toast.makeText(getApplicationContext(), "Email Already exists", Toast.LENGTH_SHORT).show();
