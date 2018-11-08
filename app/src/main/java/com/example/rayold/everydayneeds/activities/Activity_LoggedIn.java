@@ -11,17 +11,22 @@ import com.example.rayold.everydayneeds.R;
 
 public class Activity_LoggedIn extends AppCompatActivity {
     Button logout;
-    DatabaseHelper db;
+    String email,a,b;
+    TextView name, role, textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__logged_in);
 
-        String email = getIntent().getStringExtra("EMAIL");
-        TextView textView = (TextView)findViewById(R.id.Email);
-        TextView name = (TextView)findViewById(R.id.Name);
-        TextView role = (TextView)findViewById(R.id.Role);
+        email = getIntent().getStringExtra("EMAIL");
+        a = getIntent().getStringExtra("NAME");
+        b = getIntent().getStringExtra("ROLE");
+        textView = (TextView)findViewById(R.id.Email);
+        name = (TextView)findViewById(R.id.Name);
+        role = (TextView)findViewById(R.id.Role);
         textView.setText(email);
+        name.setText(a);
+        role.setText(b);
 
 
         logout = (Button)findViewById(R.id.bLogout);

@@ -38,13 +38,16 @@ public class Login extends AppCompatActivity {
         boutonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailUser.getText().toString();
+                String email = emailUser.getText().toString();;
                 String password = passwordLogin.getText().toString();
                 Boolean chkmailpass = db.emailpasword(email, password);
+                User user = db.findUser(email);
                 if (chkmailpass == true) {
                     Toast.makeText(getApplicationContext(),"Successful login", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(Login.this, Activity_LoggedIn.class);
                     i.putExtra("EMAIL", email);
+                    i.putExtra("NAME",user.getName());
+                    i.putExtra("ROLE",user.getRole());
                     startActivity(i);
                 } else {
                     Toast.makeText(getApplicationContext(),"Wrong email or password", Toast.LENGTH_SHORT).show();

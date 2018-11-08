@@ -5,7 +5,7 @@
         <item>--Choisir role--</item>
         <item>Fournisseur</item>
         <item>Administrateur</item>
-        <item>utilisateur</item>
+        <item>Proprietaire</item>
     </string-array>
 
 </resources>

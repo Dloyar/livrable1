@@ -10,7 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
 
-        super(context, "Z.db", null, 1);
+        super(context, "DatabaseLogin.db", null, 1);
 
     }
 
@@ -21,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("Create table user(name text,email text primary key, password text,role text)");
+        db.execSQL("Create table service(serviceName text primary key, hourlyRate text)");
 
     }
 
@@ -31,9 +32,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL("drop table if exists user");
+        db.execSQL("drop table if exists service");
 
     }
 
+
+
+    public boolean insertService(String serviceName, String hourlyRate) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("serviceName", serviceName);
+
+        contentValues.put("hourlyRate", hourlyRate);
+
+        long ins = db.insert("service", null, contentValues);
+
+        if (ins == -1)
+
+            return false;
+
+        else
+
+            return true;
+
+    }
+
+    public boolean deleteService(String serviceName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = false;
+        String query = "SELECT * FROM "
+                + "service"
+                + " WHERE "
+                + "serviceName"
+                + " = \""
+                + serviceName
+                + "\""
+                ;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            String idStr = cursor.getString(0);
+            db.delete("service", "serviceName" + " = " + idStr, null);
+            cursor.close();
+            result = true;
+        }
+        db.close();
+        return result;
+    }
 
 
     public boolean insert(String name, String email, String password, String role) {
@@ -108,13 +156,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
+
+
     public User findUser(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * FROM user WHERE email=?",new String[]{email});
+        String query = "Select * FROM "
+                + "user"
+                + " WHERE "
+                + "email"
+                + " = \""
+                + email
+                + "\"";
+        Cursor cursor = db.rawQuery(query,null);
         User user = new User();
         if (cursor.moveToFirst()) {
             user.setName(cursor.getString(0));
-            user.setRole(cursor.getString(2));
+            user.setEmail(cursor.getString(1));
+            user.setPassword(cursor.getString(2));
+            user.setRole(cursor.getString(3));
             cursor.close();
         } else {
             user = null;
