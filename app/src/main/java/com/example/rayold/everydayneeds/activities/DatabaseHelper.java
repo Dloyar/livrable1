@@ -10,7 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
 
-        super(context, "Login.db", null, 1);
+        super(context, "A3.db", null, 1);
 
     }
 
@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("Create table user(name text,email text primary key, password text,role text)");
-        db.execSQL("Create table service(serviceName text primary key, hourlyRate text)");
+        db.execSQL("Create table service(id integer  primary key,serviceName text, hourlyRate text)");
 
     }
 
@@ -37,6 +37,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+
+
+    public boolean editService(String serviceName, String hourlyRate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = false;
+        String query = "SELECT * FROM "
+                + "service"
+                + " WHERE "
+                + "serviceName"
+                + " = \""
+                + serviceName
+                + "\""
+                ;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+
+            String idStr = cursor.getString(0);
+            db.delete("service", "id" + " = " + idStr, null);
+            cursor.close();
+            this.insertService(serviceName,hourlyRate);
+            result = true;
+        }
+        db.close();
+        return result;
+
+
+
+
+    }
 
     public boolean insertService(String serviceName, String hourlyRate) {
 
@@ -60,7 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean deleteService(String serviceName){
+    public boolean deleteService(String serviceName, String hourlyRate){
         SQLiteDatabase db = this.getWritableDatabase();
         boolean result = false;
         String query = "SELECT * FROM "
@@ -70,12 +100,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " = \""
                 + serviceName
                 + "\""
+                + " AND "
+                +"hourlyRate"
+                + " = \""
+                + hourlyRate
+                + "\""
                 ;
         Cursor cursor = db.rawQuery(query, null);
 
         if(cursor.moveToFirst()){
             String idStr = cursor.getString(0);
-            db.delete("service", "serviceName" + " = " + idStr, null);
+            db.delete("service", "id" + " = " + idStr, null);
             cursor.close();
             result = true;
         }

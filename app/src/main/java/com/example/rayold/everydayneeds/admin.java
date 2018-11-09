@@ -55,6 +55,30 @@ public class admin extends AppCompatActivity {
                 String s1 = service.getText().toString();
                 if(s1.equals("")){
                     Toast.makeText(getApplicationContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
+                } else{
+                    Boolean remove = db.deleteService(service.getText().toString(), hourlyRate.getText().toString());
+                    if (remove == true) {
+                        Toast.makeText(getApplicationContext(), "Service delete: Successful", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Service delete: Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s1 = service.getText().toString();
+                if(s1.equals("")){
+                    Toast.makeText(getApplicationContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
+                } else{
+                    Boolean remove = db.editService(service.getText().toString(), hourlyRate.getText().toString());
+                    if (remove == true) {
+                        Toast.makeText(getApplicationContext(), "Service Edit: Successful", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Service Edit: Failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
