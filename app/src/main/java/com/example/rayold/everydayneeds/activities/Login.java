@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rayold.everydayneeds.R;
+import com.example.rayold.everydayneeds.admin;
 
 public class Login extends AppCompatActivity {
 
@@ -48,11 +49,16 @@ public class Login extends AppCompatActivity {
                     i.putExtra("EMAIL", email);
                     i.putExtra("NAME",user.getName());
                     i.putExtra("ROLE",user.getRole());
-                    startActivity(i);
+                    if(db.isAdministrator(email)==true){
+                        Intent j = new Intent(Login.this, admin.class);
+                        startActivity(j);
+                    }else{
+                        startActivity(i);}
                 } else {
                     Toast.makeText(getApplicationContext(),"Wrong email or password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
 }

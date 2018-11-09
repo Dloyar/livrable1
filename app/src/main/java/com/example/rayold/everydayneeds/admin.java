@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rayold.everydayneeds.R;
 import com.example.rayold.everydayneeds.activities.DatabaseHelper;
 import com.example.rayold.everydayneeds.activities.Login;
 import com.example.rayold.everydayneeds.activities.Register;
@@ -24,7 +25,7 @@ public class admin extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
         service= (EditText)findViewById(R.id.editService);
-        hourlyRate = (EditText)findViewById(R.id.etPassword);
+        hourlyRate = (EditText)findViewById(R.id.editHourlyPrice);
         edit = (Button)findViewById(R.id.buttonEdit);
         add = (Button)findViewById(R.id.buttonAdd);
         delete = (Button)findViewById(R.id.buttonDelete);
@@ -48,6 +49,17 @@ public class admin extends AppCompatActivity {
             }
         });
 
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s1 = service.getText().toString();
+                if(s1.equals("")){
+                    Toast.makeText(getApplicationContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }
+
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:orientation="vertical"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:padding="10dp"
-tools:context=".activities.Login">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".activities.Login">
 
     <Button
         android:id="@+id/buttonAdd"
@@ -71,8 +71,7 @@ tools:context=".activities.Login">
         android:layout_marginLeft="23dp"
         android:layout_marginTop="59dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editHourlyPrice"
@@ -84,6 +83,19 @@ tools:context=".activities.Login">
         android:layout_marginTop="158dp"
         android:ems="10"
         android:inputType="number"
-        android:text="Ajouter le prix par heure" />
+        android:layout_marginLeft="3dp"
+        android:layout_alignLeft="@+id/buttonAdd" />
+
+    <Button
+        android:id="@+id/buttonListeService"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/buttonEdit"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-141dp"
+        android:layout_marginBottom="173dp"
+        android:text="Voir la liste des services"
+        android:layout_alignRight="@+id/buttonEdit"
+        android:layout_marginRight="-141dp" />
 
 </RelativeLayout>

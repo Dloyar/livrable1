@@ -10,7 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
 
-        super(context, "DatabaseLogin.db", null, 1);
+        super(context, "Login.db", null, 1);
 
     }
 
@@ -180,6 +180,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         db.close();
         return user;
+
+
+    }
+
+    public boolean isAdministrator(String email){
+
+        if(this.findSpecificAdmin(email)!=null){
+
+            return true;
+
+        }
+
+        else
+
+            return false ;
+
+
+
+    }
+
+
+
+    public User findSpecificAdmin(String email) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("Select * from user where role=? and email=?", new String[]{"Administrateur", email});
+
+        User user = new User();
+
+        if (cursor.moveToFirst()) {
+
+            user.setName(cursor.getString(0));
+
+            user.setRole(cursor.getString(2));
+
+            cursor.close();
+
+        } else {
+
+            user = null;
+
+        }
+
+        db.close();
+
+        return user;
+
+
+
 
 
     }
