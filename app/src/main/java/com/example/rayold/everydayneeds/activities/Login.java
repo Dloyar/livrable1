@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rayold.everydayneeds.R;
-import com.example.rayold.everydayneeds.admin;
 
 public class Login extends AppCompatActivity {
 
@@ -50,7 +49,7 @@ public class Login extends AppCompatActivity {
                     i.putExtra("NAME",user.getName());
                     i.putExtra("ROLE",user.getRole());
                     if(db.isAdministrator(email)==true){
-                        Intent j = new Intent(Login.this, admin.class);
+                        Intent j = new Intent(Login.this, Admin.class);
                         startActivity(j);
                     }else{
                         startActivity(i);}

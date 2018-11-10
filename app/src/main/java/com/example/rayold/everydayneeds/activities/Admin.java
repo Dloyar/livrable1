@@ -1,4 +1,4 @@
-package com.example.rayold.everydayneeds;
+package com.example.rayold.everydayneeds.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +14,7 @@ import com.example.rayold.everydayneeds.activities.DatabaseHelper;
 import com.example.rayold.everydayneeds.activities.Login;
 import com.example.rayold.everydayneeds.activities.Register;
 
-public class admin extends AppCompatActivity {
+public class Admin extends AppCompatActivity {
     EditText service,hourlyRate;
     Button edit,add,delete;
     DatabaseHelper db;
