@@ -38,10 +38,14 @@ public class admin extends AppCompatActivity {
 
                 if (s1.equals("") || s2.equals("")) {
                     Toast.makeText(getApplicationContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
+                }else if(db.serviceNameHourlyRate(s1)==true){
+                    Toast.makeText(getApplicationContext(), "This service already exists", Toast.LENGTH_SHORT).show();
                 }else{
                     Boolean insert = db.insertService(s1, s2);
                     if (insert == true) {
                         Toast.makeText(getApplicationContext(), "Service Adding Successful", Toast.LENGTH_SHORT).show();
+                        service.setText("");
+                        hourlyRate.setText("");
                     } else {
                         Toast.makeText(getApplicationContext(), "Service Adding Failed", Toast.LENGTH_SHORT).show();
                     }
@@ -59,6 +63,8 @@ public class admin extends AppCompatActivity {
                     Boolean remove = db.deleteService(service.getText().toString(), hourlyRate.getText().toString());
                     if (remove == true) {
                         Toast.makeText(getApplicationContext(), "Service delete: Successful", Toast.LENGTH_SHORT).show();
+                        service.setText("");
+                        hourlyRate.setText("");
                     } else {
                         Toast.makeText(getApplicationContext(), "Service delete: Failed", Toast.LENGTH_SHORT).show();
                     }
@@ -73,11 +79,13 @@ public class admin extends AppCompatActivity {
                 if(s1.equals("")){
                     Toast.makeText(getApplicationContext(), "Fields are empty", Toast.LENGTH_SHORT).show();
                 } else{
-                    Boolean remove = db.editService(service.getText().toString(), hourlyRate.getText().toString());
-                    if (remove == true) {
+                    Boolean edit = db.editService(service.getText().toString(), hourlyRate.getText().toString());
+                    if (edit == true) {
                         Toast.makeText(getApplicationContext(), "Service Edit: Successful", Toast.LENGTH_SHORT).show();
+                        service.setText("");
+                        hourlyRate.setText("");
                     } else {
-                        Toast.makeText(getApplicationContext(), "Service Edit: Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Service Edit: Failed, no match found", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

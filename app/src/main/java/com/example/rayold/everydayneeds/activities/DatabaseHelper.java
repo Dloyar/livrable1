@@ -118,6 +118,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    //pour ne pas inserer plusieurs services de meme nom
+    public boolean serviceNameHourlyRate(String serviceName) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("Select * from service where serviceName=?", new String[]{serviceName});
+
+        if (cursor.getCount() > 0)
+
+            return true;
+
+        else
+
+            return false;
+
+    }
+
 
     public boolean insert(String name, String email, String password, String role) {
 
